@@ -5,5 +5,6 @@
 ## Usage
 
 ```
-
+heroku
+npm i -D lerna
 ```
