@@ -6,5 +6,5 @@
 
 ```
 heroku
-npm i -D lerna
+npm i -g lerna
 ```
