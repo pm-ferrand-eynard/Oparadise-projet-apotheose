@@ -1,60 +1,56 @@
 import './Map.module.scss';
 import 'leaflet/dist/leaflet.css';
-import {
-  MapContainer, TileLayer, Marker, Popup, LayersControl,
-} from 'react-leaflet';
-import L from 'leaflet';
-import icon from 'leaflet/dist/images/marker-icon.png';
-import iconShadow from 'leaflet/dist/images/marker-shadow.png';
-import {
-  useQuery,
-  gql,
-} from '@apollo/client';
 
-const DefaultIcon = L.icon({
+import {
+  MapContainer, TileLayer, LayersControl,
+} from 'react-leaflet';
+
+import { useSelector } from 'react-redux';
+import Pointer from '../Pointer';
+import { CHANGE_CURRENT_POS } from '../../store/actions';
+import {
+  BarsMarker,
+  SchoolMarker,
+  PoliceMarker,
+  ShopMarker,
+  HospitalMarker,
+  ParkMarker,
+} from './Markers';
+import getCheckboxs from '../../store/selectors/getCheckboxs';
+
+/* const DefaultIcon = L.icon({
   iconUrl: icon,
   shadowUrl: iconShadow,
-});
+  iconSize: [25, 41],
+  iconAnchor: [10, 41],
+  popupAnchor: [2, -40],
+}); */
 
 const Map = () => {
-  const initPosition = [48.863007, 2.338288];
-  const { loading, error, data } = useQuery(gql`
-  query Query {
-    tomtomSearch(keyword: "hopital", lat: 48.863007, lon: 2.338288, radius: 100000, limit:1000) {
-      position {
-        lat
-        lon
-      }
-      address {
-        streetName
-        postalCode
-        municipality
-      }
-      poi {
-        name
-      }
-      id
-    }
-  }
+  const currentPos = useSelector((state) => state.map.mapEvents.currentPos);
+  const allCheckboxs = useSelector((state) => state.search.apiSettings);
 
-    `);
-
-  if (loading) return 'Loading...';
-  if (error) return `Error! ${error.message}`;
   // Base map tile:
   const maps = {
     base: 'https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png',
     sattelite: 'http://{s}.google.com/vt/lyrs=s&x={x}&y={y}&z={z}',
     pretty: 'https://api.mapbox.com/styles/v1/{id}/tiles/{z}/{x}/{y}?access_token=pk.eyJ1IjoibWFwYm94IiwiYSI6ImNpejY4NXVycTA2emYycXBndHRqcmZ3N3gifQ.rJcFIG214AriISLbB6B5aw',
   };
+
   return (
     <MapContainer
       style={{ height: '100%' }}
-      center={initPosition}
+      center={currentPos}
       zoom={13}
-      zoomControl={false}
-      tap
+      /* onClick={(e) => {
+        dispatch({
+          type: CHANGE_CURRENT_POS,
+          inputLatPos: e.latlng.lat,
+          inputLngPos: e.latlng.lng,
+        });
+      }} */
     >
+      <Pointer />
       <LayersControl position="topright">
         <LayersControl.BaseLayer checked name="Map">
           <TileLayer
@@ -78,19 +74,102 @@ const Map = () => {
         </LayersControl.BaseLayer>
       </LayersControl>
       {
-        data.tomtomSearch.map(({
+        getCheckboxs('bars', allCheckboxs).result.map(({
           id, position, address, poi,
-        }) => (
-          <Marker key={id} icon={DefaultIcon} position={position}>
-            <Popup>
-              <p>{poi.name}</p>
-              <p>{address.streetName}</p>
-              <p>{address.postalCode}</p>
-              <p>{address.municipality}</p>
-            </Popup>
-          </Marker>
-        ))
-      }
+        }) => {
+          const newId = ((Number.isNaN(id) ? id : 1) + Math.random()) * 100;
+          return (
+            <BarsMarker
+              id={newId}
+              key={newId}
+              position={position}
+              address={address}
+              poi={poi}
+            />
+          );
+        })
+}
+      {
+        getCheckboxs('ecoles', allCheckboxs).result.map(({
+          id, position, address, poi,
+        }) => {
+          const newId = ((Number.isNaN(id) ? id : 1) + Math.random()) * 100;
+          return (
+            <SchoolMarker
+              id={newId}
+              key={newId}
+              position={position}
+              address={address}
+              poi={poi}
+            />
+          );
+        })
+}
+      {
+        getCheckboxs('police', allCheckboxs).result.map(({
+          id, position, address, poi,
+        }) => {
+          const newId = ((Number.isNaN(id) ? id : 1) + Math.random()) * 100;
+          return (
+            <PoliceMarker
+              id={newId}
+              key={newId}
+              position={position}
+              address={address}
+              poi={poi}
+            />
+          );
+        })
+}
+      {
+        getCheckboxs('parcs', allCheckboxs).result.map(({
+          id, position, address, poi,
+        }) => {
+          const newId = ((Number.isNaN(id) ? id : 1) + Math.random()) * 100;
+          return (
+            <ParkMarker
+              id={newId}
+              key={newId}
+              position={position}
+              address={address}
+              poi={poi}
+            />
+          );
+        })
+}
+      {
+        getCheckboxs('hopital', allCheckboxs).result.map(({
+          id, position, address, poi,
+        }) => {
+          const newId = ((Number.isNaN(id) ? id : 1) + Math.random()) * 100;
+          return (
+            <HospitalMarker
+              id={newId}
+              key={newId}
+              position={position}
+              address={address}
+              poi={poi}
+            />
+          );
+        })
+}
+      {
+        getCheckboxs('shops', allCheckboxs).result.map(({
+          id, position, address, poi,
+        }) => {
+          const newId = ((Number.isNaN(id) ? id : 1) + Math.random()) * 100;
+          return (
+            <ShopMarker
+              id={newId}
+              key={newId}
+              position={position}
+              address={address}
+              poi={poi}
+            />
+          );
+        })
+}
+
     </MapContainer>
   );
 };
