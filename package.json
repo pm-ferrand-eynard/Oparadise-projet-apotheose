@@ -15,6 +15,7 @@
   "dependencies": {
     "@apollo/client": "^3.4.16",
     "cross-env": "^7.0.3",
+    "esm": "^3.2.25",
     "graphql": "^15.7.2",
     "install": "^0.13.0"
   }
