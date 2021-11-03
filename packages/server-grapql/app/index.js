@@ -6,7 +6,6 @@ import dotenv from 'dotenv';
 import typeDefs from './typesDefs';
 import resolvers from './resolvers';
 import TomtomApi from './datasources/TomtomApi';
-import oparadiseDb from './datasources/oparadiseDb';
 
 dotenv.config();
 const PORT = process.env.BACK_PORT || 3333;
@@ -14,7 +13,10 @@ const PORT = process.env.BACK_PORT || 3333;
 // anomyme function executed when everything is loaded
 (async () => {
   const app = express();
-  app.use(cors());
+  app.use(
+    cors(),
+  );
+
   app.get('/', (req, res) => {
     res.send('welcome on graphql server');
   });
@@ -26,10 +28,6 @@ const PORT = process.env.BACK_PORT || 3333;
     typeDefs,
     // describe actions to db or externals api
     resolvers,
-    context: () => ({
-      // with context each resolver can access to the client connected to the db
-      client: oparadiseDb,
-    }),
     dataSources: () => ({
       // datasources is very useful to use lots of external api
       // datasource will be available inside the context from resolver
