@@ -7,4 +7,5 @@
 ```
 heroku
 npm i -g lerna
+en local
 ```
