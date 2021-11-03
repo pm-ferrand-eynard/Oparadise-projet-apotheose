@@ -2,7 +2,7 @@
   "name": "@oparadize/root",
   "private": true,
   "scripts": {
-    "start": "npx lerna bootstrap "
+    "start": "npx lerna bootstrap && lerna run start "
   },
   "devDependencies": {
     "lerna": "^4.0.0"
