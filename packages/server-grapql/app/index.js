@@ -1,13 +1,14 @@
 import express from 'express';
 import cors from 'cors';
 import { ApolloServer } from 'apollo-server-express';
-import { ApolloServerPluginInlineTrace } from 'apollo-server-core';
+import dotenv from 'dotenv';
 
 import typeDefs from './typesDefs';
 import resolvers from './resolvers';
 import TomtomApi from './datasources/TomtomApi';
 
-const PORT = 3333;
+dotenv.config();
+const PORT = process.env.BACK_PORT || 3333;
 
 // anomyme function executed when everything is loaded
 (async () => {
@@ -27,7 +28,6 @@ const PORT = 3333;
     typeDefs,
     // describe actions to db or externals api
     resolvers,
-    plugins: [ApolloServerPluginInlineTrace()],
     dataSources: () => ({
       // datasources is very useful to use lots of external api
       // datasource will be available inside the context from resolver
