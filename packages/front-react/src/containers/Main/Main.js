@@ -1,5 +1,5 @@
 // import NPM
-import { Switch, Route } from 'react-router-dom';
+import { Routes, Route } from 'react-router';
 // import component
 import { useSelector } from 'react-redux';
 import Account from '../Account';
@@ -33,25 +33,17 @@ const Main = () => {
           <UserSubscribe />
         </Modal>
       )}
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route exact path="/explore">
-          <Explore />
-        </Route>
-        <Route exact path="/account">
-          <Account />
-        </Route>
-        <Route exact path="/contact">
-          <Contact />
-        </Route>
+      <Routes>
+        <Route exact path="/" element={<Home />} />
+        <Route exact path="/explore" element={<Explore />} />
+        <Route exact path="/account" element={<Account />} />
+        <Route exact path="/contact"element={<Contact />} />
         {/* Cette route n'a pas de path, elle sera donc tout le temps appelé si
       aucune a été appelé avant */}
         <Route>
           <URLError />
         </Route>
-      </Switch>
+      </Routes>
     </div>
   );
 };
