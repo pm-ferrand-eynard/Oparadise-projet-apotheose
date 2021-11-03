@@ -1,13 +1,15 @@
 import express from 'express';
 import cors from 'cors';
 import { ApolloServer } from 'apollo-server-express';
+import dotenv from 'dotenv';
 
 import typeDefs from './typesDefs';
 import resolvers from './resolvers';
 import TomtomApi from './datasources/TomtomApi';
 import oparadiseDb from './datasources/oparadiseDb';
 
-const PORT = 3333;
+dotenv.config();
+const PORT = process.env.BACK_PORT || 3333;
 
 // anomyme function executed when everything is loaded
 (async () => {
