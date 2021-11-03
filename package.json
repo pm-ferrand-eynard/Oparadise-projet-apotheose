@@ -2,8 +2,7 @@
   "name": "@oparadize/root",
   "private": true,
   "scripts": {
-    "start": "npm i -g npm ",
-    "postinstall": "npx lerna bootstrap && npx lerna run start"
+    "start": "npx lerna bootstrap && npx lerna run start "
   },
   "devDependencies": {
     "lerna": "^4.0.0"
