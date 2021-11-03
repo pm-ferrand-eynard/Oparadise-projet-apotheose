@@ -2,7 +2,7 @@
   "name": "@oparadize/root",
   "private": true,
   "scripts": {
-    "start": "npm i -g lerna && lerna run start --parallel --scope '@oparadise/*' "
+    "start": "npx lerna && lerna run start --parallel --scope '@oparadise/*' "
   },
   "devDependencies": {
     "lerna": "^4.0.0"
