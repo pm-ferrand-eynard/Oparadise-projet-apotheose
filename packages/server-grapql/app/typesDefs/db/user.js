@@ -6,11 +6,12 @@ import { gql } from 'apollo-server-express';
 // this type need to corresponding to db's user types
 const user = gql`
   type User {
-    id: String!,
-    first_name: String!,
-    last_name: String!,
+    id: ID!,
+    username: String!,
+    first_name: String,
+    last_name: String,
     civility: String,
-    mail: String!,
+    email: String!,
     password: String!,
     address: String,
     city_code: String,
@@ -25,15 +26,16 @@ const user = gql`
 
   extend type Mutation {
     registerUser(
-      first_name: String!,
-      last_name: String!,
+      username: String!,
+      first_name: String,
+      last_name: String,
       civility: String,
-      mail: String!,
+      email: String!,
       password: String!,
       address: String,
       city_code: String,
       city: String,
-      number_phone: String!,
+      number_phone: String,
     ): User!
   }
 `;
