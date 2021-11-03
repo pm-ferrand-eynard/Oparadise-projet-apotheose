@@ -5,8 +5,6 @@ const { merge } = require('webpack-merge');
 const paths = require('./paths');
 const common = require('./webpack.common.js');
 
-dotenv.config();
-
 const port = process.env.FRONT_PORT || 8080;
 
 module.exports = merge(common, {
