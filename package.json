@@ -2,7 +2,7 @@
   "name": "@oparadize/root",
   "private": true,
   "scripts": {
-    "start": "npm install && npx lerna run start --parallel --scope '@oparadise/*' "
+    "start": "npx lerna run start --parallel --scope '@oparadise/*' "
   },
   "devDependencies": {
     "lerna": "^4.0.0"
@@ -14,6 +14,7 @@
   },
   "dependencies": {
     "@apollo/client": "^3.4.16",
+    "cross-env": "^7.0.3",
     "graphql": "^15.7.2",
     "install": "^0.13.0"
   }
