@@ -10,7 +10,7 @@
     "url": "git+https://github.com/O-clock-Valhalla/projet-07-paradize.git"
   },
   "scripts": {
-    "start": "node server.js"
+    "start": "node --trace-warnings server.js"
   },
   "bugs": {
     "url": "https://github.com/O-clock-Valhalla/projet-07-paradize/issues"
