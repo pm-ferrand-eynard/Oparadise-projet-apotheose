@@ -14,9 +14,9 @@ const user = gql`
     email: String!,
     password: String!,
     address: String,
-    city_code: Int,
+    city_code: String,
     city: String,
-    number_phone: Int,
+    number_phone: String,
   }
 
   extend type Query { # extend root Query
@@ -35,7 +35,7 @@ const user = gql`
       address: String,
       city_code: String,
       city: String,
-      number_phone: Int,
+      number_phone: String,
     ): User!
   }
 `;
